@@ -1,6 +1,6 @@
 import { themeActions } from './../store/slices/themeSlice';
 import { useEffect } from 'react';
-import { createTheme, useMediaQuery } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { ThemeEnum } from '../types/ThemeType';
 import { SliceNames, StoreType } from '../types/StoreType';
@@ -10,17 +10,15 @@ import { muiLightTheme } from '@/themes/muiLightTheme';
 export const useMuiTheme = () => {
   const dispatch = useDispatch();
 
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const systemTheme = useMediaQuery('(prefers-color-scheme: dark)') ? ThemeEnum.dark : ThemeEnum.light;
 
-  const themeStore = useSelector((store: StoreType) => store.theme.theme);
+  const storeTheme = useSelector((store: StoreType) => store.theme.theme);
 
-  // sets the theme based on system theme
-  let theme = prefersDarkMode ? ThemeEnum.dark : ThemeEnum.light;
+  let theme = systemTheme;
 
-  // overwrides the theme based on store
-  if (themeStore === ThemeEnum.dark) {
+  if (storeTheme === ThemeEnum.dark) {
     theme = ThemeEnum.dark;
-  } else if (themeStore === ThemeEnum.light) {
+  } else if (storeTheme === ThemeEnum.light) {
     theme = ThemeEnum.light;
   }
 

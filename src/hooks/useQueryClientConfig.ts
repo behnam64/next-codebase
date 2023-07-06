@@ -4,7 +4,6 @@ import { MutationCache, QueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-// react query default configuration
 export const useQueryClientConfig = () => {
   const dispatch = useDispatch();
 

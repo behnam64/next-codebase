@@ -9,7 +9,7 @@ export const muiDarkTheme = createTheme({
       paper: '#0A1929',
     },
     primary: {
-      main: '#237BFE',
+      main: '#fff',
     },
     secondary: {
       main: '#EB06FF',

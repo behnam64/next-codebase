@@ -8,7 +8,7 @@ import { QueryClientProvider, Hydrate } from '@tanstack/react-query';
 import { useQueryClientConfig } from '../hooks/useQueryClientConfig';
 import { GlobalStylesComponent } from '@/styles/GlobalStyles';
 import { useMuiTheme } from '@/hooks/useMuiTheme';
-import { PageLoadingComponent } from '@/components/ui/PageLoadingComponent';
+import { MainLoadingComponent } from '@/components/MainLoadingComponent';
 import { HeadComponent } from '@/components/config/HeadComponent';
 import { NotiStackComponent } from '@/components/ui/NotiStackComponent';
 
@@ -20,21 +20,18 @@ export default function App(appProps: AppProps) {
   );
 }
 
-// this component is because the rest of the configuration needed redux store
 function InnerApp(appProps: AppProps) {
-  // returns mui theme based on system theme and store
   const { muiTheme } = useMuiTheme();
 
-  // react query default configuration return queryClient
-  const queryClient = useQueryClientConfig();
+  const queryClientConfig = useQueryClientConfig();
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClientConfig}>
       <Hydrate state={appProps.pageProps.dehydratedState}>
         <ThemeProvider theme={muiTheme}>
           <CssBaseline />
           <GlobalStylesComponent />
-          <PageLoadingComponent></PageLoadingComponent>
+          <MainLoadingComponent></MainLoadingComponent>
           <NotiStackComponent></NotiStackComponent>
           <HeadComponent></HeadComponent>
           <appProps.Component {...appProps.pageProps} />
